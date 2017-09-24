@@ -4,6 +4,25 @@
 
 using namespace cimg_library;
 
+/*
+Tom Busby
+
+2600 Imager
+
+Description:
+
+This program takes an Atari 2600 bin file, read through it, and ouputs
+an image corresponding to the bits inside the bin file.
+
+Requirements:
+
+cimg-dev
+
+Usage:
+
+imager filename.bin
+*/
+
 int main(int argc, char *argv[]) 
 {
 	// Variable section
