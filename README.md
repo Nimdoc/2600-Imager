@@ -1,10 +1,6 @@
 # 2600-Imager
 Creates images from Atari bin files
 
-### Tom Busby
-
-### 2600 Imager
-
 ### Description:
 
 This program takes an Atari 2600 bin file, read through it, and ouputs
