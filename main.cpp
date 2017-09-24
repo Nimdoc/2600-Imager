@@ -1,9 +1,10 @@
 #include "CImg.h"
 #include <fstream>
+#include <iostream>
 
 using namespace cimg_library;
 
-int main() 
+int main(int argc, char *argv[]) 
 {
 	CImg<unsigned char> img(256, 128, 1, 3);
 	img.fill(32);
@@ -11,34 +12,38 @@ int main()
 	const unsigned char white[] = {255, 255, 255};
 	const unsigned char black[] = {0, 0, 0};
 
-	int bit_count = 0;
-
-	//The amount of bits in 4096 bytes
-	//And 4096 bytes is how much is in an atari 2600 cartridge
-	const int bits = 32768;
-
-	std::ifstream file("game.bin", std::ios::binary | std::ios::in);
+	std::ifstream file;
+	
+	if(argc > 1)
+		file.open(argv[1], std::ios::binary | std::ios::in);
 
 	char c;
 
 	int bit = 0;
 
-	for(int x = 255; x > 0; x -= 8)
-	{
-		for(int y = 127; y >= 0; y--)
+	if(argc > 1 && file.is_open())
+		for(int x = 255; x > 0; x -= 8)
 		{
-			file.get(c);
-			for(int z = 7; z >=0; z--)
+			for(int y = 127; y >= 0; y--)
 			{
-				int bit = ((c >> z) & 1);
+				file.get(c);
+				for(int z = 7; z >=0; z--)
+				{
+					int bit = ((c >> z) & 1);
 
-				if(bit)
-					img.draw_point((x - z), y, white);
+					if(bit)
+						img.draw_point((x - z), y, white);
 
+				}
 			}
 		}
+	else
+	{
+		if(argc < 2)
+			std::cout << "Correct usage: imager filename.bin\n";
+		else	
+			std::cout << "File unable to be opened.\n";
 	}
-
 	
 	file.close();
 	img.save("image.bmp");	
