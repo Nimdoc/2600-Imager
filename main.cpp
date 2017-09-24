@@ -23,17 +23,17 @@ int main()
 
 	int bit = 0;
 
-	for(int x = 0; x < 256; x += 8)
+	for(int x = 255; x > 0; x -= 8)
 	{
-		for(int y = 0; y < 128; y++)
+		for(int y = 127; y >= 0; y--)
 		{
 			file.get(c);
 			for(int z = 7; z >=0; z--)
 			{
 				int bit = ((c >> z) & 1);
 
-				if(bit == true)
-					img.draw_point(255 - (x + z),127 - y, white);
+				if(bit)
+					img.draw_point((x - z), y, white);
 
 			}
 		}
